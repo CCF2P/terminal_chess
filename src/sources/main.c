@@ -26,9 +26,7 @@ void frame_draw ()
 
 int main(void)
 {
-	printf("%s", l_down_right);
-	printf("%s\n", l_horizontal);
-	printf("%s\n", l_vertical);
+	draw_board();
 
     return 0;
 }
