@@ -27,6 +27,8 @@ void frame_draw ()
 int main(void)
 {
 	draw_board();
+	draw_figures();
+	goto(1, 20);
 
     return 0;
 }

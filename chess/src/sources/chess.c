@@ -68,6 +68,10 @@ void draw_board()
     printf(l_horizontal);
     printf(l_horizontal);
     printf(l_up_left);
-    
-    goto(1, 20);
+}
+
+void draw_figures()
+{
+    goto(3,2);
+    printf(king_b);
 }
