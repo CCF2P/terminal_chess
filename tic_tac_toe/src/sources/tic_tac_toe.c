@@ -91,21 +91,14 @@ void redraw_board(struct Board* board)
     home;
 }
 
-short is_valid(char* str)
+short is_valid(int* number, char* symbol)
 {
-    int len = sizeof(str) / sizeof(char);
-    // printf("size of str: %d\n", len);
-    if (len != 8)
-    {
-        // printf("len error\n");
-        return 0;
-    }
-    if (str[0] < 48 && str[0] > 57)
+    if (*number < 1 || *number > 9)
     {
         // printf("str[0] error\n");
         return 0;
     }
-    if (str[1] != 'X' && str[1] != 'O')
+    if (*symbol != 'X' || *symbol != 'O')
     {
         // printf("str[1] error\n");
         return 0;
@@ -115,23 +108,29 @@ short is_valid(char* str)
 
 void take_input(struct Board* board)
 {
-    char* input = malloc(2 * sizeof(char));
-    scanf("%c %c", &input[0], &input[1]);
+    /*
+    * Добавить обработку ошибки когда вводится больше одного символа
+      в переменную number или symbol
+    */
 
-    short valid = is_valid(input);
+    printf("Input number(1-9) type(X,O): ");
+    int number = -1;
+    char symbol = 'V';
+    scanf("%d %c", &number, &symbol);
+
+    short valid = is_valid(&number, &symbol);
     /*if (valid)
         printf("%d", valid);
     else
         printf("not valid");*/
     
-    while(!valid)
+    /*while(!valid)
     {
-        scanf("%c %c", &input[0], &input[1]);
+        scanf("%d %d", number, symbol);
         valid = is_valid(input);
-    }
-
-    board->board[input[0]] = input[1];
-    free(input);
+    }*/
+    printf("valid = %hd\n", valid);
+    board->board[number] = symbol;
 }
 
 /*
@@ -144,6 +143,10 @@ Board's cells coordinates:
 void game()
 {
     struct Board* b = malloc(sizeof(struct Board));
+    for (int i = 0; i < 9; i++)
+    {
+        b->board[i] = 'V';    
+    }
     
     short win = 0;
     /*while (!win)
@@ -154,7 +157,11 @@ void game()
 
    take_input(b);
    // redraw_board(b);
+   for (int i = 0; i < 9; i++)
+   {
+        printf("%c   ", b->board[i]);
+   }
 
-    goto(1, 12); 
+    goto(1, 12);
     free(b); 
 }
